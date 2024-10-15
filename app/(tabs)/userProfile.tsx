@@ -20,5 +20,6 @@ const styles = StyleSheet.create({
     },
     text: {
         color: '#fff',
+        fontFamily: 'Poppins_500Medium'
     },
 });
