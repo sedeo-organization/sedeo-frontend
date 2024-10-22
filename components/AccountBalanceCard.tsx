@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, Text, StyleSheet, Dimensions} from 'react-native';
 import {Colors} from "@/styles/Colors";
-import {TextStyles} from "@/styles/CommonStyles";
+import {CardStyles, TextStyles} from "@/styles/CommonStyles";
 
 interface CustomCardProps {
     leftText?: string;
@@ -26,17 +26,12 @@ const AccountBalanceCard = (cardProps: CustomCardProps) => {
 
 const styles = StyleSheet.create({
     cardContainer: {
-        flexDirection: 'column',
         flex: 1,
         marginHorizontal: '7%',
         marginVertical: '2%',
-        shadowColor: '#2E2E2E',
-        shadowOffset: {width: 0, height: 4},
-        shadowOpacity: 0.15,
-        shadowRadius: 15,
-        elevation: 5,
+        minHeight: height * 0.15,
+        ...CardStyles.cardShadow,
         borderRadius: 30,
-        minHeight: height * 0.15
     },
     leftTextContainer: {
         position: 'absolute',

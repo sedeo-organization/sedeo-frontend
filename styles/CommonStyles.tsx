@@ -55,5 +55,19 @@ export const TextStyles = StyleSheet.create({
     text36Medium: {
         fontSize: 36,
         fontFamily: MEDIUM_FONT
+    },
+    text40Medium: {
+        fontSize: 40,
+        fontFamily: MEDIUM_FONT
     }
 });
+
+export const CardStyles = StyleSheet.create({
+    cardShadow: {
+        shadowColor: '#2E2E2E',
+        shadowOffset: { width: 0, height: 4 },
+        shadowOpacity: 0.15,
+        shadowRadius: 15,
+        elevation: 5,
+    }
+})
