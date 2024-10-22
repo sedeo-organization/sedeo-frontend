@@ -1,97 +1,143 @@
-import {ActivityIndicator, StyleSheet, Text, View} from 'react-native';
-import {useCallback, useState} from "react";
+import React, {useEffect, useState} from 'react';
+import {FlatList, StyleSheet, Text, View} from 'react-native';
+import TabButton from "@/components/TabButton";
+import {Colors} from "@/styles/Colors";
+import AcceptedFriendCard from "@/components/AcceptedFriendCard";
+import FriendRequestCard from "@/components/FriendRequestCard";
+import FloatingActionButton from "@/components/FloatingActionButton";
+import {TextStyles} from "@/styles/CommonStyles";
 import {userApi} from "@/utils/api/userApi";
-import {useFocusEffect} from "expo-router";
-import {UserProfileData} from "@/model/User";
+import {CircularActivityIndicator} from "@/components/CircularActivityIndicator";
 
-export default function FriendsView() {
-    const [userProfile, setUserProfile] = useState<UserProfileData>();
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState('');
+const FriendsView = () => {
+    const [selectedTab, setSelectedTab] = useState('Zaakceptowani');
+    const [acceptedFriends, setAcceptedFriends] = useState<AcceptedFriend[]>([]);
+    const [friendInvitations, setFriendInvitations] = useState<FriendInvitation[]>([]);
+    const [refetchAcceptedFriends, setRefetchAcceptedFriends] = useState(false);
+    const [isLoading, setIsLoading] = useState(true)
 
-    useFocusEffect(
-        useCallback(() => {
-            let isActive = true;
-            setLoading(true);
+    async function fetchAcceptedFriends() {
+        setIsLoading(true);
+        const _acceptedFriends = await userApi.getFriends();
+        if (_acceptedFriends) {
+            setAcceptedFriends(_acceptedFriends.friends );
+            setIsLoading(false);
+        }
+    }
 
-            const fetchUser = async () => {
-                try {
-                    const user = await userApi.getProfile();
+    async function fetchFriendInvitations() {
+        setIsLoading(true);
+        const _friendInvitations = await userApi.getFriendInvitations();
+        setFriendInvitations(_friendInvitations.invitingUsers);
+        setIsLoading(false);
+    }
 
-                    if (isActive) {
-                        setUserProfile(user);
-                        setError('');
-                    }
-                } catch (e) {
-                    if (isActive) {
-                        setError('Nie udało się załadować profilu użytkownika');
-                    }
-                } finally {
-                    if (isActive) {
-                        setLoading(false);
-                    }
-                }
-            };
+    useEffect(() => {
+        fetchAcceptedFriends();
+    }, [refetchAcceptedFriends])
 
-            fetchUser();
 
-            return () => {
-                isActive = false;
-            };
-        }, [])
+
+    const renderAcceptedCard = ({ item }: { item: AcceptedFriend }) => (
+        <AcceptedFriendCard
+            key={item.userId}
+            firstName={item.firstName}
+            lastName={item.lastName}
+            phone={item.phoneNumber}
+        />
     );
 
-    if (loading) {
-        return <ActivityIndicator size="large" color="#1F41BB" />;
-    }
+    const renderInvitationCard = ({ item }: { item: FriendInvitation }) => (
+        <FriendRequestCard
+            key={item.userId}
+            firstName={item.firstName}
+            lastName={item.lastName}
+            onAccept={() => console.log(`Accepted invitation from ${item.firstName}`)}
+            onDecline={() => console.log(`Declined invitation from ${item.firstName}`)}
+        />
+    );
 
-    if (error) {
-        return <Text style={styles.secondaryText}>{error}</Text>;
-    }
+    const renderList = () => {
+        if (selectedTab === 'Zaakceptowani') {
+            return (
+                <FlatList
+                    data={acceptedFriends}
+                    renderItem={renderAcceptedCard}
+                    keyExtractor={(item) => item.userId}
+                />
+            );
+        } else {
+            return (
+                <FlatList
+                    data={friendInvitations}
+                    renderItem={renderInvitationCard}
+                    keyExtractor={(item) => item.userId}
+                />
+            );
+        }
+    };
 
     return (
         <View style={styles.container}>
-            {userProfile ? (
-                <>
-                    <Text style={styles.primaryText}>{userProfile?.firstName}</Text>
-                    <Text style={styles.secondaryText}>{userProfile?.lastName}</Text>
-                    <Text style={styles.secondaryText}>{userProfile?.phoneNumber}</Text>
-                    <Text style={styles.secondaryText}>{userProfile?.email}</Text>
-                    <Text style={styles.balanceHeaderText}>Stan konta</Text>
-                    <Text style={styles.balanceText}>{userProfile?.accountBalance}</Text>
-                </>
-            ) : (
-                <Text style={styles.secondaryText}>Nie znaleziono profilu użytkownika</Text>
-            )}
+            <View style={styles.headerContainer}>
+                <Text style={styles.text40Medium}>Znajomi</Text>
+            </View>
+            <View style={styles.buttonContainer}>
+                <TabButton
+                    title="Zaakceptowani"
+                    onPress={() => {
+                        setSelectedTab('Zaakceptowani');
+                        setRefetchAcceptedFriends(!refetchAcceptedFriends);
+                    }}
+                    selected={selectedTab === 'Zaakceptowani'}
+                />
+                <TabButton
+                    title="Zaproszenia"
+                    onPress={() => {
+                        setSelectedTab('Zaproszenia');
+                        fetchFriendInvitations();
+                    }}
+                    selected={selectedTab === 'Zaproszenia'}
+                />
+            </View>
+
+            <View style={styles.listContainer}>
+                {isLoading ? (<CircularActivityIndicator></CircularActivityIndicator>) : renderList()}
+            </View>
+
+            <View style={styles.actionButtonContainer}>
+                <FloatingActionButton onPress={() => console.log("Moving to the next screen")} />
+            </View>
         </View>
     );
-}
+};
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#FFFFFF',
-        justifyContent: 'center',
-        alignItems: 'center',
+        backgroundColor: Colors.defaultBackground,
+        gap: 20,
     },
-    primaryText: {
-        color: '#1F41BB',
-        fontFamily: 'Poppins_500Medium',
-        fontSize: 40
+    headerContainer: {
+        flex: 1 / 6,
+        justifyContent: 'flex-end',
+        marginHorizontal: 15,
     },
-    secondaryText: {
-        color: '#2E2E2E',
-        fontFamily: 'Poppins_500Medium',
-        fontSize: 20
+    actionButtonContainer: {
+        justifyContent: "flex-end"
     },
-    balanceHeaderText: {
-        color: '#F6F6F6',
-        fontFamily: 'Poppins_500Medium',
-        fontSize: 18
+    text40Medium: {
+        ...TextStyles.text40Medium,
+        color: Colors.primary,
+        flexGrow: 0,
     },
-    balanceText: {
-        color: '#F6F6F6',
-        fontFamily: 'Poppins_500Medium',
-        fontSize: 32
+    buttonContainer: {
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+    },
+    listContainer: {
+        flex: 1,
     }
 });
+
+export default FriendsView;
