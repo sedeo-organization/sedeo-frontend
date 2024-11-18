@@ -19,3 +19,18 @@ interface AcceptedFriendsResponse {
 interface FriendInvitationsResponse {
     invitingUsers: FriendInvitation[];
 }
+
+interface PotentialFriend {
+    userId: string;
+    firstName: string;
+    lastName: string;
+    phoneNumber: string;
+}
+
+interface PotentialFriendsResponse {
+    potentialFriends: PotentialFriend[]
+}
+
+interface AddFriendInvitationRequest {
+    recipientUserId: string
+}

@@ -1,6 +1,4 @@
 import {Tabs} from 'expo-router';
-import FontAwesome from '@expo/vector-icons/FontAwesome';
-import Ionicons from '@expo/vector-icons/Ionicons';
 import {HomeIcon} from "@/assets/icons/HomeIcon";
 import {WalletIcon} from "@/assets/icons/WalletIcon";
 import {FriendIcon} from "@/assets/icons/FriendIcon";
