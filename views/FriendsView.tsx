@@ -8,6 +8,7 @@ import FloatingActionButton from "@/components/FloatingActionButton";
 import {TextStyles} from "@/styles/CommonStyles";
 import {userApi} from "@/utils/api/userApi";
 import {CircularActivityIndicator} from "@/components/CircularActivityIndicator";
+import {router} from "expo-router";
 
 const FriendsView = () => {
     const [selectedTab, setSelectedTab] = useState('Zaakceptowani');
@@ -106,7 +107,7 @@ const FriendsView = () => {
             </View>
 
             <View style={styles.actionButtonContainer}>
-                <FloatingActionButton onPress={() => console.log("Moving to the next screen")} />
+                <FloatingActionButton onPress={() => router.navigate("/add-friend")} />
             </View>
         </View>
     );
