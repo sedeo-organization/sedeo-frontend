@@ -7,7 +7,7 @@ export const Colors = {
     darkGrey: '#2E2E2E',
     lighterGrey: '#494949',
     defaultBackground: '#F4F4F4',
-    textInputBackground: '#F1F4FF',
+    textInputBackground: '#e3e3e3',
     textInputColor: '#626262',
     textWhite: '#EEEEEE',
     pureWhite: '#FFFFFF',

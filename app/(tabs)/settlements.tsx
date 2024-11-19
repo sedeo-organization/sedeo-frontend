@@ -1,5 +1,5 @@
-import SettlementsView from "@/views/SettlementsView";
+import SettlementGroupsView from "@/views/SettlementGroupsView";
 
 export default function Settlements() {
-    return <SettlementsView></SettlementsView>
+    return <SettlementGroupsView></SettlementGroupsView>
 }
