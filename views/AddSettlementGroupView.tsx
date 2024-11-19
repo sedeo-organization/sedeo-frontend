@@ -1,10 +1,18 @@
-import React from "react";
+import React, {useContext, useState} from "react";
 import {StyleSheet, Text, TextInput, View} from "react-native";
 import {Colors} from "@/styles/Colors";
 import NextButton from "@/components/NextButton";
 import {TextStyles} from "@/styles/CommonStyles";
+import {router} from "expo-router";
+import AddSettlementGroupContext from "@/store/add-settlement-group-context";
 
 const AddSettlementGroupView = () => {
+    const [currentTitle, setCurrentTitle] = useState("");
+    const {title, setTitle} = useContext(AddSettlementGroupContext);
+
+    function changeGroupTitle(newTitle: string) {
+        setTitle(newTitle)
+    }
 
     return (
         <View style={styles.container}>
@@ -14,12 +22,16 @@ const AddSettlementGroupView = () => {
             <View style={styles.textInputContainer}>
                 <TextInput
                     style={styles.input}
-                    // onChangeText={onChangeNumber}
-                    placeholder="Tytuł rozliczenia"
+                    value={currentTitle}
+                    onChangeText={setCurrentTitle}
+                    placeholder={"Tytuł grupy rozliczeniowej"}
                 />
             </View>
             <View style={styles.nextButtonContainer}>
-                <NextButton onPress={() => console.log("Pressed next button")}></NextButton>
+                <NextButton onPress={() => {
+                    changeGroupTitle(currentTitle)
+                    router.navigate("/add-settlement-group-participant")
+                }}></NextButton>
             </View>
         </View>
     );

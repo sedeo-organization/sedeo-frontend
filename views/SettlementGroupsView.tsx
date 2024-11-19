@@ -1,20 +1,23 @@
-import React, {useEffect, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import {FlatList, StyleSheet, Text, View} from "react-native";
 import TabButton from "@/components/TabButton";
 import {CircularActivityIndicator} from "@/components/CircularActivityIndicator";
 import FloatingActionButton from "@/components/FloatingActionButton";
-import {router} from "expo-router";
+import {router, useFocusEffect} from "expo-router";
 import {Colors} from "@/styles/Colors";
 import {TextStyles} from "@/styles/CommonStyles";
 import SettlementGroupCard from "@/components/SettlementGroupCard";
 import {settlementGroupApi} from "@/utils/api/settlementGroupApi";
+import AddSettlementGroupContext from "@/store/add-settlement-group-context";
 
 const SettlementGroupsView = () => {
     const [selectedTab, setSelectedTab] = useState('Oczekujące');
     const [pendingSettlementGroups, setPendingSettlementGroups] = useState<SettlementGroup[]>([]);
     const [settledSettlementGroups, setSettledSettlementGroups] = useState<SettlementGroup[]>([]);
     const [refetchPendingSettlementGroups, setRefetchPendingSettlementGroups] = useState(false);
-    const [isLoading, setIsLoading] = useState(true)
+    const [isLoading, setIsLoading] = useState(true);
+    const {contextFriends, setContextFriends} = useContext(AddSettlementGroupContext);
+    const {title, setTitle} = useContext(AddSettlementGroupContext);
 
     async function fetchPendingSettlementGroups() {
         setIsLoading(true);
@@ -33,6 +36,14 @@ const SettlementGroupsView = () => {
             setIsLoading(false);
         }
     }
+
+    useFocusEffect(
+        React.useCallback(() => {
+            fetchPendingSettlementGroups()
+            setContextFriends([])
+            setTitle("")
+        }, [])
+    );
 
     useEffect(() => {
         fetchPendingSettlementGroups();

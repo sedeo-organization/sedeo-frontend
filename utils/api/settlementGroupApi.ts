@@ -1,6 +1,5 @@
 import axios from 'axios';
 import {BASE_API_URL} from "@/config/AppConfig";
-import {UserProfileData} from "@/model/User";
 
 const SETTLEMENT_GROUPS_API_URL = `${BASE_API_URL}/settlement-groups`
 
@@ -23,4 +22,20 @@ export const settlementGroupApi = {
                 return err.response?.status;
             });
     },
+    createSettlementGroup: async (createSettlementGroupRequest: CreateSettlementGroupRequest) => {
+        return axios
+            .post(`${SETTLEMENT_GROUPS_API_URL}`, createSettlementGroupRequest,
+                {
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                })
+            .then(response => {
+                console.log(response.data)
+            })
+            .catch(err => {
+                console.log(err.response)
+                return err.response?.status;
+            })
+    }
 };
