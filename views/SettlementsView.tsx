@@ -1,97 +1,91 @@
-import {Text, View, StyleSheet, ActivityIndicator} from 'react-native';
-import {useCallback, useState} from "react";
-import {userApi} from "@/utils/api/userApi";
-import {useFocusEffect} from "expo-router";
-import {UserProfileData} from "@/model/User";
+import React, {useState} from "react";
+import {FlatList, StyleSheet, Text, View} from "react-native";
+import {CircularActivityIndicator} from "@/components/CircularActivityIndicator";
+import FloatingActionButton from "@/components/FloatingActionButton";
+import {router, useFocusEffect, useLocalSearchParams} from "expo-router";
+import {Colors} from "@/styles/Colors";
+import {TextStyles} from "@/styles/CommonStyles";
+import {settlementGroupApi} from "@/utils/api/settlementGroupApi";
+import SettlementCard from "@/components/SettlementCard";
 
-export default function SettlementsView() {
-    const [userProfile, setUserProfile] = useState<UserProfileData>();
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState('');
+const SettlementGroupsView = () => {
+    const { groupId } = useLocalSearchParams<{ groupId: string }>();
+    const [settlements, setSettlements] = useState<Settlement[]>([]);
+    const [isLoading, setIsLoading] = useState(true);
+
+    async function fetchSettlements() {
+        setIsLoading(true);
+        const _settlements = await settlementGroupApi.getSettlements(groupId);
+        if (_settlements) {
+            setSettlements(_settlements.settlements);
+            setIsLoading(false);
+        }
+    }
 
     useFocusEffect(
-        useCallback(() => {
-            let isActive = true;
-            setLoading(true);
-
-            const fetchUser = async () => {
-                try {
-                    const user = await userApi.getProfile();
-
-                    if (isActive) {
-                        setUserProfile(user);
-                        setError('');
-                    }
-                } catch (e) {
-                    if (isActive) {
-                        setError('Nie udało się załadować profilu użytkownika');
-                    }
-                } finally {
-                    if (isActive) {
-                        setLoading(false);
-                    }
-                }
-            };
-
-            fetchUser();
-
-            return () => {
-                isActive = false;
-            };
+        React.useCallback(() => {
+            fetchSettlements()
         }, [])
     );
 
-    if (loading) {
-        return <ActivityIndicator size="large" color="#1F41BB" />;
-    }
+    const renderSettlementCard = ({item}: { item: Settlement }) => (
+        <SettlementCard
+            key={item.settlementId}
+            settlementId={item.settlementId}
+            title={item.title}
+            totalValue={item.totalValue}
+        />
+    );
 
-    if (error) {
-        return <Text style={styles.secondaryText}>{error}</Text>;
-    }
+    const renderList = () => {
+        return (
+            <FlatList
+                data={settlements}
+                renderItem={renderSettlementCard}
+                keyExtractor={(item) => item.settlementId}
+            />
+        );
+    };
 
     return (
         <View style={styles.container}>
-            {userProfile ? (
-                <>
-                    <Text style={styles.primaryText}>{userProfile?.firstName}</Text>
-                    <Text style={styles.secondaryText}>{userProfile?.lastName}</Text>
-                    <Text style={styles.secondaryText}>{userProfile?.phoneNumber}</Text>
-                    <Text style={styles.secondaryText}>{userProfile?.email}</Text>
-                    <Text style={styles.balanceHeaderText}>Stan konta</Text>
-                    <Text style={styles.balanceText}>{userProfile?.accountBalance}</Text>
-                </>
-            ) : (
-                <Text style={styles.secondaryText}>Nie znaleziono profilu użytkownika</Text>
-            )}
+            <View style={styles.headerContainer}>
+                <Text style={styles.text40Medium}>Twoje rozliczenia</Text>
+            </View>
+
+            <View style={styles.listContainer}>
+                {isLoading ? (<CircularActivityIndicator></CircularActivityIndicator>) : renderList()}
+            </View>
+
+            <View style={styles.actionButtonContainer}>
+                <FloatingActionButton onPress={() => router.navigate("/add-settlement-group")}/>
+            </View>
         </View>
     );
-}
+};
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#FFFFFF',
-        justifyContent: 'center',
-        alignItems: 'center',
+        backgroundColor: Colors.defaultBackground,
+        gap: 20,
     },
-    primaryText: {
-        color: '#1F41BB',
-        fontFamily: 'Poppins_500Medium',
-        fontSize: 40
+    headerContainer: {
+        flex: 1 / 14,
+        justifyContent: 'flex-end',
+        marginHorizontal: 15,
     },
-    secondaryText: {
-        color: '#2E2E2E',
-        fontFamily: 'Poppins_500Medium',
-        fontSize: 20
+    actionButtonContainer: {
+        justifyContent: "flex-end"
     },
-    balanceHeaderText: {
-        color: '#F6F6F6',
-        fontFamily: 'Poppins_500Medium',
-        fontSize: 18
+    text40Medium: {
+        ...TextStyles.text40Medium,
+        color: Colors.primary,
+        flexGrow: 0,
     },
-    balanceText: {
-        color: '#F6F6F6',
-        fontFamily: 'Poppins_500Medium',
-        fontSize: 32
+    listContainer: {
+        flex: 1,
     }
 });
+
+export default SettlementGroupsView;

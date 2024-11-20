@@ -54,6 +54,10 @@ const SettlementGroupsView = () => {
             key={item.groupId}
             groupId={item.groupId}
             title={item.title}
+            onPress={() => router.navigate({
+                pathname: "/settlements",
+                params: { groupId: item.groupId },
+            })}
         />
     );
 

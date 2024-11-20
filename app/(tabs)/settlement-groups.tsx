@@ -1,5 +1,5 @@
 import SettlementGroupsView from "@/views/SettlementGroupsView";
 
-export default function Settlements() {
+export default function SettlementGroups() {
     return <SettlementGroupsView></SettlementGroupsView>
 }

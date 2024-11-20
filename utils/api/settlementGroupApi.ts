@@ -37,5 +37,22 @@ export const settlementGroupApi = {
                 console.log(err.response)
                 return err.response?.status;
             })
-    }
+    },
+    getSettlements: async (groupId: string): Promise<FetchSettlementsResponse | undefined> => {
+        return axios
+            .get(`${SETTLEMENT_GROUPS_API_URL}/${groupId}/settlements`, {
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                }
+            )
+            .then(response => {
+                console.log(response.data)
+                return response.data as FetchSettlementsResponse;
+            })
+            .catch(err => {
+                console.log(err.response)
+                return err.response?.status;
+            });
+    },
 };
