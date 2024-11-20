@@ -25,7 +25,7 @@ export default function TabLayout() {
                 }}
             />
             <Tabs.Screen
-                name="settlements"
+                name="settlement-groups"
                 options={{
                     tabBarIcon: ({focused}) => <WalletIcon focused={focused.toString()}/>,
                     tabBarLabel: ''

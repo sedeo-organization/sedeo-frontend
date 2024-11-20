@@ -1,21 +1,20 @@
 import React from 'react';
-import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import {Colors} from "@/styles/Colors";
 import {CardStyles} from "@/styles/CommonStyles";
 
-interface SettlementGroupCardProps {
-    groupId: string;
+interface SettlementCardProps {
+    settlementId: string;
     title: string;
-    onPress: () => void;
+    totalValue: string;
 }
 
-const SettlementGroupCard = (settlementGroupCardProps: SettlementGroupCardProps) => {
+const SettlementCard = (settlementCardProps: SettlementCardProps) => {
     return (
-        <TouchableOpacity style={styles.card} onPress={settlementGroupCardProps.onPress}>
-            <View>
-                <Text>{settlementGroupCardProps.title}</Text>
-            </View>
-        </TouchableOpacity>
+        <View style={styles.card}>
+            <Text>{settlementCardProps.title}</Text>
+            <Text>{settlementCardProps.totalValue}zł</Text>
+        </View>
     );
 };
 
@@ -37,4 +36,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default SettlementGroupCard;
+export default SettlementCard;
