@@ -105,4 +105,20 @@ export const settlementGroupApi = {
                 return err.response?.status;
             });
     },
+    settleExchange: async (settleExchangeRequest: SettleExchangeRequest, groupId: string, settlementId: string, exchangeId: string) => {
+        return axios
+            .patch(`${SETTLEMENT_GROUPS_API_URL}/${groupId}/settlements/${settlementId}/exchanges/${exchangeId}`, settleExchangeRequest,
+                {
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                })
+            .then(response => {
+                console.log(response.data)
+            })
+            .catch(err => {
+                console.log(err.response)
+                return err.response?.status;
+            })
+    },
 };

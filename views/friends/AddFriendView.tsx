@@ -58,6 +58,7 @@ export default function AddFriendView() {
                 setSearchPhrase={setSearchPhrase}
                 clicked={clicked}
                 setClicked={setClicked}
+                textInputPlaceholder={"Wyszukaj znajomych"}
             />
 
             {loading ? (

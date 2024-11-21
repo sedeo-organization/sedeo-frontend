@@ -39,3 +39,7 @@ interface FetchExchangesResponse {
     totalValue: string;
     settlementExchanges: Exchange[];
 }
+
+interface SettleExchangeRequest {
+    status: string;
+}
