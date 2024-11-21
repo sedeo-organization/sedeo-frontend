@@ -12,3 +12,13 @@ interface CreateSettlementGroupRequest {
     title: string,
     participantIds: string[]
 }
+
+interface Participant {
+    userId: string;
+    firstName: string;
+    lastName: string;
+}
+
+interface FetchGroupParticipantsResponse {
+    participants: Participant[];
+}

@@ -1,4 +1,4 @@
-import UserProfileView from "@/views/UserProfileView";
+import UserProfileView from "@/views/users/UserProfileView";
 
 export default function Index() {
     return <UserProfileView></UserProfileView>
