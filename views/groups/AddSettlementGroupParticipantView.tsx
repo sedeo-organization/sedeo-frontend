@@ -53,7 +53,7 @@ const AddSettlementGroupParticipantView = () => {
     const handleAddGroup = async () => {
         setIsLoading(true);
         await addSettlementGroup();
-        router.navigate('/settlements');
+        router.navigate('/settlement-groups');
     };
 
     return (

@@ -1,4 +1,4 @@
-import AddSettlementGroupParticipantView from "@/views/AddSettlementGroupParticipantView";
+import AddSettlementGroupParticipantView from "@/views/groups/AddSettlementGroupParticipantView";
 
 export default function AddSettlementGroupParticipant()
 {

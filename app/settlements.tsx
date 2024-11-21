@@ -1,4 +1,4 @@
-import SettlementsView from "@/views/SettlementsView";
+import SettlementsView from "@/views/settlements/SettlementsView";
 
 export default function Settlements()
 {

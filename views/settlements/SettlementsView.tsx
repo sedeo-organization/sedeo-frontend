@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useContext, useState} from "react";
 import {FlatList, StyleSheet, Text, View} from "react-native";
 import {CircularActivityIndicator} from "@/components/CircularActivityIndicator";
 import FloatingActionButton from "@/components/FloatingActionButton";
@@ -7,11 +7,13 @@ import {Colors} from "@/styles/Colors";
 import {TextStyles} from "@/styles/CommonStyles";
 import {settlementGroupApi} from "@/utils/api/settlementGroupApi";
 import SettlementCard from "@/components/SettlementCard";
+import AddSettlementContext from "@/store/add-settlement-context";
 
-const SettlementGroupsView = () => {
+const SettlementView = () => {
     const { groupId } = useLocalSearchParams<{ groupId: string }>();
     const [settlements, setSettlements] = useState<Settlement[]>([]);
     const [isLoading, setIsLoading] = useState(true);
+    const addSettlementContext = useContext(AddSettlementContext);
 
     async function fetchSettlements() {
         setIsLoading(true);
@@ -25,6 +27,9 @@ const SettlementGroupsView = () => {
     useFocusEffect(
         React.useCallback(() => {
             fetchSettlements()
+            addSettlementContext.setContextSettlementExchanges([])
+            addSettlementContext.setSettlementTitle("")
+            addSettlementContext.setTotalSettlementValue(0)
         }, [])
     );
 
@@ -58,7 +63,11 @@ const SettlementGroupsView = () => {
             </View>
 
             <View style={styles.actionButtonContainer}>
-                <FloatingActionButton onPress={() => router.navigate("/add-settlement-group")}/>
+                <FloatingActionButton onPress={() => router.navigate({
+                    pathname: "/add-settlement",
+                    params: {groupId: groupId},
+                })}
+                    />
             </View>
         </View>
     );
@@ -88,4 +97,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default SettlementGroupsView;
+export default SettlementView;

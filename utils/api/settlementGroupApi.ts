@@ -55,4 +55,37 @@ export const settlementGroupApi = {
                 return err.response?.status;
             });
     },
+    getParticipants: async (groupId: string): Promise<FetchGroupParticipantsResponse | undefined> => {
+        return axios
+            .get(`${SETTLEMENT_GROUPS_API_URL}/${groupId}/participants`, {
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                }
+            )
+            .then(response => {
+                console.log(response.data)
+                return response.data as FetchGroupParticipantsResponse;
+            })
+            .catch(err => {
+                console.log(err.response)
+                return err.response?.status;
+            });
+    },
+    postSettlement: async (createSettlementRequest: CreateSettlementRequest, groupId: string) => {
+        return axios
+            .post(`${SETTLEMENT_GROUPS_API_URL}/${groupId}/settlements`, createSettlementRequest,
+                {
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                })
+            .then(response => {
+                console.log(response.data)
+            })
+            .catch(err => {
+                console.log(err.response)
+                return err.response?.status;
+            })
+    },
 };
