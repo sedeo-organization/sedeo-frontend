@@ -49,7 +49,6 @@ const AddSettlementView = () => {
                 <NextButton onPress={() => {
                     changeSettlementTitle(currentTitle)
                     changeSettlementTotalValue(currentTotalValue)
-                    console.log("AddSettlementView groupId: ", groupId)
                     router.navigate({
                         pathname: "/add-settlement-exchange",
                         params: {groupId: groupId},
