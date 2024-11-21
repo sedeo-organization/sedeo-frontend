@@ -21,6 +21,10 @@ const SettlementDetailsView = () => {
             }
         }
 
+        async function settleExchange(exchangeId: string) {
+            await settlementGroupApi.settleExchange({status: "settled"}, groupId, settlementId, exchangeId)
+        }
+
         useEffect(() => {
             fetchSettlementExchanges();
         }, [])
@@ -34,7 +38,9 @@ const SettlementDetailsView = () => {
                 creditorLastName={item.creditorLastName}
                 exchangeValue={item.exchangeValue.toString()}
                 status={item.status}
-                onButtonPress={() => {
+                onButtonPress={async () => {
+                    await settleExchange(item.exchangeId)
+                    await fetchSettlementExchanges()
                 }}/>
         );
 

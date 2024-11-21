@@ -67,6 +67,7 @@ export default function AddFriendToSettlementGroupView() {
                 setSearchPhrase={setSearchPhrase}
                 clicked={clicked}
                 setClicked={setClicked}
+                textInputPlaceholder={"Wyszukaj znajomych"}
             />
 
             {loading ? (

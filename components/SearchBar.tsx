@@ -8,6 +8,7 @@ interface SearchBarProps {
     searchPhrase: string;
     setSearchPhrase: (phrase: string) => void;
     setClicked: (value: boolean) => void;
+    textInputPlaceholder: string;
 }
 
 export const SearchBar = (searchBarProps: SearchBarProps) => {
@@ -28,7 +29,7 @@ export const SearchBar = (searchBarProps: SearchBarProps) => {
                 />
                 <TextInput
                     style={styles.input}
-                    placeholder="Wyszukaj znajomych"
+                    placeholder={searchBarProps.textInputPlaceholder}
                     placeholderTextColor="#A9A9A9"
                     value={searchBarProps.searchPhrase}
                     onChangeText={searchBarProps.setSearchPhrase}

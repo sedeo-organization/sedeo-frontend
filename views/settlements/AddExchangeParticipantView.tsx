@@ -93,6 +93,7 @@ export default function AddExchangeParticipantView() {
                 setSearchPhrase={setSearchPhrase}
                 clicked={clicked}
                 setClicked={setClicked}
+                textInputPlaceholder={"Wyszukaj członków grupy"}
             />
 
             {loading ? (

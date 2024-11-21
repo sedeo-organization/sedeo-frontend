@@ -4,7 +4,7 @@ import {Colors} from "@/styles/Colors";
 import {CardStyles} from "@/styles/CommonStyles";
 import {ExchangeArrowIcon} from "@/assets/icons/ExchangeArrowIcon";
 import MajorButton from "@/components/MajorButton";
-import {CheckIcon} from "@/assets/icons/CheckIcon";
+import { CheckIcon } from '@/assets/icons/CheckIcon';
 
 interface ExchangeCardProps {
     creditorFirstName?: string;
@@ -42,7 +42,7 @@ export const ExchangeCard = (exchangeCardProps: ExchangeCardProps) => {
                 </View>
             </View>
             {exchangeCardProps.status === "PENDING" ? (
-                <MajorButton title={"Rozlicz"} onPress={() => {exchangeCardProps.onButtonPress}}></MajorButton>
+                <MajorButton title={"Rozlicz"} onPress={exchangeCardProps.onButtonPress}></MajorButton>
             ) : (
                 <CheckIcon style={styles.checkIcon}></CheckIcon>
             )}
