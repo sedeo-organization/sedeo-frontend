@@ -6,7 +6,7 @@ import FloatingActionButton from "@/components/FloatingActionButton";
 import {TextStyles} from "@/styles/CommonStyles";
 import {CircularActivityIndicator} from "@/components/CircularActivityIndicator";
 import {router, useLocalSearchParams} from "expo-router";
-import {ExchangeCard} from "@/components/ExchangeCard";
+import {AddExchangeCard} from "@/components/AddExchangeCard";
 import AddSettlementContext from "@/store/add-settlement-context";
 import {uuid} from "expo-modules-core";
 import MajorButton from "@/components/MajorButton";
@@ -41,7 +41,7 @@ const AddSettlementExchangeView = () => {
         }
 
         const renderExchangeCard = ({item}: { item: Exchange }) => (
-            <ExchangeCard
+            <AddExchangeCard
                 key={item.exchangeId}
                 debtorFirstName={item.debtorFirstName}
                 debtorLastName={item.debtorLastName}
@@ -49,7 +49,6 @@ const AddSettlementExchangeView = () => {
                 creditorLastName={item.creditorLastName}
                 exchangeValue={item.exchangeValue.toString()}
                 onCreditorPress={() => {
-                    console.log("AddSettlementExchangeView groupId: ", groupId);
                     router.navigate({
                         pathname: "/add-exchange-participant",
                         params: {exchangeId: item.exchangeId, isCreditor: "true", groupId: groupId},

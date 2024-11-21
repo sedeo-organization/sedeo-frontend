@@ -16,6 +16,7 @@ interface Exchange {
     creditorUserId?: string;
     creditorFirstName?: string;
     creditorLastName?: string;
+    status?: string;
     exchangeValue: string
 }
 
@@ -31,4 +32,10 @@ interface CreateSettlementRequest {
     title: string;
     totalValue: number;
     settlementExchanges: SettlementExchange[];
+}
+
+interface FetchExchangesResponse {
+    title: string;
+    totalValue: string;
+    settlementExchanges: Exchange[];
 }

@@ -39,6 +39,10 @@ const SettlementView = () => {
             settlementId={item.settlementId}
             title={item.title}
             totalValue={item.totalValue}
+            onCardPress={() => router.navigate({
+                pathname: "/settlement-details",
+                params: {groupId: groupId, settlementId: item.settlementId},
+            })}
         />
     );
 
