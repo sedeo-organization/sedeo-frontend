@@ -26,10 +26,10 @@ const AccountBalanceCard = (cardProps: CustomCardProps) => {
 
 const styles = StyleSheet.create({
     cardContainer: {
-        flex: 1,
         marginHorizontal: '7%',
         marginVertical: '2%',
         minHeight: height * 0.15,
+        maxHeight: height * 0.15,
         ...CardStyles.cardShadow,
         borderRadius: 30,
     },

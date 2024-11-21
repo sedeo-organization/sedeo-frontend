@@ -1,4 +1,4 @@
-import {Text, View, StyleSheet, ActivityIndicator, Alert} from 'react-native';
+import {Alert, StyleSheet, Text, View} from 'react-native';
 import {useCallback, useState} from "react";
 import {userApi} from "@/utils/api/userApi";
 import {useFocusEffect} from "expo-router";
@@ -84,14 +84,14 @@ const styles = StyleSheet.create({
     textContainer: {
         flex: 1 / 2,
         justifyContent: 'center',
-        alignSelf: 'flex-start',
         paddingHorizontal: '10%',
         paddingVertical: '3%',
         paddingTop: '15%',
-        gap: 10
+        gap: 10,
     },
     cardContainer: {
-        flex: 1 / 2,
+        flex: 1 / 3,
+        justifyContent: "center",
     },
     header1: {
         ...TextStyles.header1,

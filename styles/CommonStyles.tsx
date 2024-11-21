@@ -1,9 +1,9 @@
 import { StyleSheet } from 'react-native';
 import {Colors} from "@/styles/Colors";
 
-const SEMI_BOLD_FONT = 'Poppins_600SemiBold'
-const MEDIUM_FONT = 'Poppins_500Medium'
-const REGULAR_FONT = 'Poppins_400Regular'
+const SEMI_BOLD_FONT = 'poppins-semi-bold'
+const MEDIUM_FONT = 'poppins-medium'
+const REGULAR_FONT = 'poppins-regular'
 const LOGO_FONT = 'GFS Didot'
 
 export const TextStyles = StyleSheet.create({
