@@ -9,6 +9,7 @@ import {TextStyles} from "@/styles/CommonStyles";
 import {userApi} from "@/utils/api/userApi";
 import {CircularActivityIndicator} from "@/components/CircularActivityIndicator";
 import {router} from "expo-router";
+import {ChangeFriendInvitationStatusRequest} from "@/model/User";
 
 const FriendsView = () => {
     const [selectedTab, setSelectedTab] = useState('Zaakceptowani');
@@ -21,7 +22,7 @@ const FriendsView = () => {
         setIsLoading(true);
         const _acceptedFriends = await userApi.getFriends();
         if (_acceptedFriends) {
-            setAcceptedFriends(_acceptedFriends.friends );
+            setAcceptedFriends(_acceptedFriends.friends);
             setIsLoading(false);
         }
     }
@@ -33,13 +34,30 @@ const FriendsView = () => {
         setIsLoading(false);
     }
 
+    async function acceptFriendInvitation(invitingUserId: string) {
+        const changeFriendInvitationStatusRequest: ChangeFriendInvitationStatusRequest = {
+            invitingUserId: invitingUserId,
+            status: "ACCEPTED"
+        }
+        await userApi.patchChangeFriendInvitationStatus(changeFriendInvitationStatusRequest)
+        await fetchFriendInvitations();
+    }
+
+    async function rejectFriendInvitation(invitingUserId: string) {
+        const changeFriendInvitationStatusRequest: ChangeFriendInvitationStatusRequest = {
+            invitingUserId: invitingUserId,
+            status: "REJECTED"
+        }
+        await userApi.patchChangeFriendInvitationStatus(changeFriendInvitationStatusRequest)
+        await fetchFriendInvitations();
+    }
+
     useEffect(() => {
         fetchAcceptedFriends();
     }, [refetchAcceptedFriends])
 
 
-
-    const renderAcceptedCard = ({ item }: { item: AcceptedFriend }) => (
+    const renderAcceptedCard = ({item}: { item: AcceptedFriend }) => (
         <AcceptedFriendCard
             key={item.userId}
             firstName={item.firstName}
@@ -48,13 +66,13 @@ const FriendsView = () => {
         />
     );
 
-    const renderInvitationCard = ({ item }: { item: FriendInvitation }) => (
+    const renderInvitationCard = ({item}: { item: FriendInvitation }) => (
         <FriendRequestCard
             key={item.userId}
             firstName={item.firstName}
             lastName={item.lastName}
-            onAccept={() => console.log(`Accepted invitation from ${item.firstName}`)}
-            onDecline={() => console.log(`Declined invitation from ${item.firstName}`)}
+            onAccept={() => acceptFriendInvitation(item.userId)}
+            onDecline={() => rejectFriendInvitation(item.userId)}
         />
     );
 
@@ -107,7 +125,7 @@ const FriendsView = () => {
             </View>
 
             <View style={styles.actionButtonContainer}>
-                <FloatingActionButton onPress={() => router.navigate("/add-friend")} />
+                <FloatingActionButton onPress={() => router.navigate("/add-friend")}/>
             </View>
         </View>
     );

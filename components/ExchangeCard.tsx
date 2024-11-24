@@ -7,12 +7,15 @@ import MajorButton from "@/components/MajorButton";
 import { CheckIcon } from '@/assets/icons/CheckIcon';
 
 interface ExchangeCardProps {
+    creditorId?: string;
     creditorFirstName?: string;
     creditorLastName?: string;
+    debtorId?: string;
     debtorFirstName?: string;
     debtorLastName?: string;
     exchangeValue?: string;
     status?: string;
+    currentUserId?: string;
     onButtonPress: () => void;
 }
 
@@ -41,11 +44,12 @@ export const ExchangeCard = (exchangeCardProps: ExchangeCardProps) => {
                     <Text>{exchangeCardProps.debtorLastName}</Text>
                 </View>
             </View>
-            {exchangeCardProps.status === "PENDING" ? (
+
+            {exchangeCardProps.status === "PENDING" && exchangeCardProps.currentUserId === exchangeCardProps.creditorId ? (
                 <MajorButton title={"Rozlicz"} onPress={exchangeCardProps.onButtonPress}></MajorButton>
-            ) : (
+            ) : exchangeCardProps.status === "SETTLED" ? (
                 <CheckIcon style={styles.checkIcon}></CheckIcon>
-            )}
+            ) : null}
         </View>
     );
 };

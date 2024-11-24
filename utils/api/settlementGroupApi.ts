@@ -1,15 +1,12 @@
-import axios from 'axios';
 import {BASE_API_URL} from "@/config/AppConfig";
+import apiClient from "@/utils/api/apiClient";
 
 const SETTLEMENT_GROUPS_API_URL = `${BASE_API_URL}/settlement-groups`
 
 export const settlementGroupApi = {
     getSettlementGroups: async (status: string): Promise<FetchSettlementGroupsResponse | undefined> => {
-        return axios
+        return apiClient
             .get(`${SETTLEMENT_GROUPS_API_URL}`, {
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
                     params: {status: status}
                 }
             )
@@ -23,13 +20,8 @@ export const settlementGroupApi = {
             });
     },
     createSettlementGroup: async (createSettlementGroupRequest: CreateSettlementGroupRequest) => {
-        return axios
-            .post(`${SETTLEMENT_GROUPS_API_URL}`, createSettlementGroupRequest,
-                {
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                })
+        return apiClient
+            .post(`${SETTLEMENT_GROUPS_API_URL}`, createSettlementGroupRequest)
             .then(response => {
                 console.log(response.data)
             })
@@ -39,13 +31,8 @@ export const settlementGroupApi = {
             })
     },
     getSettlements: async (groupId: string): Promise<FetchSettlementsResponse | undefined> => {
-        return axios
-            .get(`${SETTLEMENT_GROUPS_API_URL}/${groupId}/settlements`, {
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                }
-            )
+        return apiClient
+            .get(`${SETTLEMENT_GROUPS_API_URL}/${groupId}/settlements`)
             .then(response => {
                 console.log(response.data)
                 return response.data as FetchSettlementsResponse;
@@ -56,13 +43,8 @@ export const settlementGroupApi = {
             });
     },
     getParticipants: async (groupId: string): Promise<FetchGroupParticipantsResponse | undefined> => {
-        return axios
-            .get(`${SETTLEMENT_GROUPS_API_URL}/${groupId}/participants`, {
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                }
-            )
+        return apiClient
+            .get(`${SETTLEMENT_GROUPS_API_URL}/${groupId}/participants`)
             .then(response => {
                 console.log(response.data)
                 return response.data as FetchGroupParticipantsResponse;
@@ -73,13 +55,8 @@ export const settlementGroupApi = {
             });
     },
     postSettlement: async (createSettlementRequest: CreateSettlementRequest, groupId: string) => {
-        return axios
-            .post(`${SETTLEMENT_GROUPS_API_URL}/${groupId}/settlements`, createSettlementRequest,
-                {
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                })
+        return apiClient
+            .post(`${SETTLEMENT_GROUPS_API_URL}/${groupId}/settlements`, createSettlementRequest)
             .then(response => {
                 console.log(response.data)
             })
@@ -89,13 +66,8 @@ export const settlementGroupApi = {
             })
     },
     getExchanges: async (groupId: string, settlementId: string): Promise<FetchExchangesResponse | undefined> => {
-        return axios
-            .get(`${SETTLEMENT_GROUPS_API_URL}/${groupId}/settlements/${settlementId}`, {
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                }
-            )
+        return apiClient
+            .get(`${SETTLEMENT_GROUPS_API_URL}/${groupId}/settlements/${settlementId}`,)
             .then(response => {
                 console.log(response.data)
                 return response.data as FetchExchangesResponse;
@@ -106,13 +78,8 @@ export const settlementGroupApi = {
             });
     },
     settleExchange: async (settleExchangeRequest: SettleExchangeRequest, groupId: string, settlementId: string, exchangeId: string) => {
-        return axios
-            .patch(`${SETTLEMENT_GROUPS_API_URL}/${groupId}/settlements/${settlementId}/exchanges/${exchangeId}`, settleExchangeRequest,
-                {
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                })
+        return apiClient
+            .patch(`${SETTLEMENT_GROUPS_API_URL}/${groupId}/settlements/${settlementId}/exchanges/${exchangeId}`, settleExchangeRequest)
             .then(response => {
                 console.log(response.data)
             })

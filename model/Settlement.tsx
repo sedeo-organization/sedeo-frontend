@@ -10,10 +10,10 @@ interface FetchSettlementsResponse {
 
 interface Exchange {
     exchangeId: string;
-    debtorUserId?: string;
+    debtorId?: string;
     debtorFirstName?: string;
     debtorLastName?: string;
-    creditorUserId?: string;
+    creditorId?: string;
     creditorFirstName?: string;
     creditorLastName?: string;
     status?: string;
