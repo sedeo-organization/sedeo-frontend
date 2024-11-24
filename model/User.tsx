@@ -6,3 +6,11 @@ export interface UserProfileData {
     email: string;
     accountBalance: number
 }
+
+export interface RegisterUserRequest {
+    email: string;
+    firstName: string;
+    lastName: string;
+    phoneNumber: string;
+    password: string;
+}

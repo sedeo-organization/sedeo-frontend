@@ -1,12 +1,13 @@
 import axios from 'axios';
 import {BASE_API_URL} from "@/config/AppConfig";
-import {UserProfileData} from "@/model/User";
+import {RegisterUserRequest, UserProfileData} from "@/model/User";
 
 const PROFILE_API_URL = `${BASE_API_URL}/users/me`
 const FRIENDS_API_URL = `${BASE_API_URL}/users/friends`
 const FRIEND_INVITATIONS_API_URL = `${BASE_API_URL}/users/friend-requests`
 const POTENTIAL_FRIENDS_API_URL = `${BASE_API_URL}/users/potential-friends`
 const CREATE_FRIEND_INVITATION_API_URL = `${BASE_API_URL}/users/friend-requests`
+const REGISTER_USER_API_URL = `${BASE_API_URL}/registration`
 
 export const userApi = {
     getProfile: async (): Promise<UserProfileData | undefined> => {
@@ -78,6 +79,22 @@ export const userApi = {
     sendFriendInvitation: async (addFriendInvitationRequest: AddFriendInvitationRequest) => {
         return axios
             .post(`${CREATE_FRIEND_INVITATION_API_URL}`, addFriendInvitationRequest,
+                {
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                })
+            .then(response => {
+                console.log(response.data)
+            })
+            .catch(err => {
+                console.log(err.response)
+                return err.response?.status;
+            })
+    },
+    postUserRegistration: async (registerUserRequest: RegisterUserRequest) => {
+        return axios
+            .post(`${REGISTER_USER_API_URL}`, registerUserRequest,
                 {
                     headers: {
                         'Content-Type': 'application/json',
