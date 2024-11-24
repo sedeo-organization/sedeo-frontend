@@ -1,6 +1,12 @@
-import axios from 'axios';
 import {BASE_API_URL} from "@/config/AppConfig";
-import {RegisterUserRequest, UserProfileData} from "@/model/User";
+import {
+    ChangeFriendInvitationStatusRequest,
+    LoginRequest,
+    LoginResponse,
+    RegisterUserRequest,
+    UserProfileData
+} from "@/model/User";
+import apiClient from "@/utils/api/apiClient";
 
 const PROFILE_API_URL = `${BASE_API_URL}/users/me`
 const FRIENDS_API_URL = `${BASE_API_URL}/users/friends`
@@ -8,16 +14,13 @@ const FRIEND_INVITATIONS_API_URL = `${BASE_API_URL}/users/friend-requests`
 const POTENTIAL_FRIENDS_API_URL = `${BASE_API_URL}/users/potential-friends`
 const CREATE_FRIEND_INVITATION_API_URL = `${BASE_API_URL}/users/friend-requests`
 const REGISTER_USER_API_URL = `${BASE_API_URL}/registration`
+const LOGIN_API_URL = `${BASE_API_URL}/login`
+const CHANGE_FRIEND_INVITATION_STATUS_API_URL = `${BASE_API_URL}/users/friend-requests`
 
 export const userApi = {
     getProfile: async (): Promise<UserProfileData | undefined> => {
-        return axios
-            .get(`${PROFILE_API_URL}`, {
-                    headers: {
-                        'Content-Type': 'application/json',
-                    }
-                }
-            )
+        return apiClient
+            .get(`${PROFILE_API_URL}`)
             .then(response => {
                 console.log(response.data)
                 return response.data as UserProfileData;
@@ -28,12 +31,8 @@ export const userApi = {
             });
     },
     getFriends: async () => {
-        return axios
-            .get(`${FRIENDS_API_URL}`, {
-                headers: {
-                    'Content-Type': 'application/json',
-                }
-            })
+        return apiClient
+            .get(`${FRIENDS_API_URL}`)
             .then(response => {
                 console.log(response.data)
                 return response.data;
@@ -44,12 +43,8 @@ export const userApi = {
             })
     },
     getFriendInvitations: async (): Promise<FriendInvitationsResponse> => {
-        return axios
-            .get(`${FRIEND_INVITATIONS_API_URL}`, {
-                headers: {
-                    'Content-Type': 'application/json',
-                }
-            })
+        return apiClient
+            .get(`${FRIEND_INVITATIONS_API_URL}`)
             .then(response => {
                 console.log(response.data)
                 return response.data as FriendInvitationsResponse;
@@ -60,11 +55,8 @@ export const userApi = {
             })
     },
     getPotentialFriends: async (searchPhrase: string) => {
-        return axios
-            .get(`${POTENTIAL_FRIENDS_API_URL}`, {
-                headers: {
-                    'Content-Type': 'application/json',
-                },
+        return apiClient
+            .get(`${POTENTIAL_FRIENDS_API_URL}`,{
                 params: {search_phrase: searchPhrase}
             })
             .then(response => {
@@ -77,13 +69,19 @@ export const userApi = {
             })
     },
     sendFriendInvitation: async (addFriendInvitationRequest: AddFriendInvitationRequest) => {
-        return axios
-            .post(`${CREATE_FRIEND_INVITATION_API_URL}`, addFriendInvitationRequest,
-                {
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                })
+        return apiClient
+            .post(`${CREATE_FRIEND_INVITATION_API_URL}`, addFriendInvitationRequest)
+            .then(response => {
+                console.log(response.data)
+            })
+            .catch(err => {
+                console.log(err.response)
+                return err.response?.status;
+            })
+    },
+    patchChangeFriendInvitationStatus:async (changeFriendInvitationStatusRequest: ChangeFriendInvitationStatusRequest) => {
+        return apiClient
+            .patch(`${CHANGE_FRIEND_INVITATION_STATUS_API_URL}`, changeFriendInvitationStatusRequest)
             .then(response => {
                 console.log(response.data)
             })
@@ -93,13 +91,8 @@ export const userApi = {
             })
     },
     postUserRegistration: async (registerUserRequest: RegisterUserRequest) => {
-        return axios
-            .post(`${REGISTER_USER_API_URL}`, registerUserRequest,
-                {
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                })
+        return apiClient
+            .post(`${REGISTER_USER_API_URL}`, registerUserRequest)
             .then(response => {
                 console.log(response.data)
             })
@@ -107,5 +100,17 @@ export const userApi = {
                 console.log(err.response)
                 return err.response?.status;
             })
-    }
+    },
+    postUserLogin: async (loginRequest: LoginRequest) => {
+        return apiClient
+            .post(`${LOGIN_API_URL}`, loginRequest)
+            .then(response => {
+                console.log(response.data)
+                return response.data as LoginResponse;
+            })
+            .catch(err => {
+                console.log(err.response)
+                return err.response?.status;
+            })
+    },
 };

@@ -39,7 +39,8 @@
             "./assets/fonts/poppins/Poppins-Medium.ttf"
           ]
         }
-      ]
+      ],
+      "expo-secure-store"
     ],
     "experiments": {
       "typedRoutes": true

@@ -1,12 +1,14 @@
 import {Alert, StyleSheet, Text, View} from 'react-native';
 import {useCallback, useState} from "react";
 import {userApi} from "@/utils/api/userApi";
-import {useFocusEffect} from "expo-router";
+import {router, useFocusEffect} from "expo-router";
 import {UserProfileData} from "@/model/User";
 import {TextStyles} from "@/styles/CommonStyles";
 import {Colors} from "@/styles/Colors";
 import {CircularActivityIndicator} from "@/components/CircularActivityIndicator";
 import AccountBalanceCard from "@/components/AccountBalanceCard";
+import MajorButton from "@/components/MajorButton";
+import {deleteJwt} from "@/utils/auth/jwtStorage";
 
 export default function UserProfileView() {
     let [userProfile, setUserProfile] = useState<UserProfileData | undefined>(undefined);
@@ -67,6 +69,10 @@ export default function UserProfileView() {
                                             backgroundColor={userProfile?.accountBalance >= 0 ? Colors.positive : Colors.negative}>
                         </AccountBalanceCard>
                     </View>
+                    <MajorButton title={"Wyloguj się"} onPress={() => {
+                        deleteJwt;
+                        router.navigate("/login")
+                    }}></MajorButton>
                 </>
             ) : (
                 <Text style={styles.text20Medium}>Nie znaleziono profilu użytkownika</Text>
