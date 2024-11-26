@@ -1,4 +1,4 @@
-import {SafeAreaView, StyleSheet, Text, TextInput, View} from 'react-native';
+import {SafeAreaView, ScrollView, StyleSheet, Text, TextInput, View} from 'react-native';
 import React, {useState} from "react";
 import {TextStyles} from "@/styles/CommonStyles";
 import {Colors} from "@/styles/Colors";
@@ -16,7 +16,6 @@ export default function RegistrationView() {
     const [repeatedPassword, setRepeatedPassword] = useState("")
 
     async function handleCreateUser() {
-        console.log("Registering user")
         const registerUserRequest: RegisterUserRequest = {
             email: email,
             firstName: firstName,
@@ -29,7 +28,7 @@ export default function RegistrationView() {
     }
 
     return (
-        <SafeAreaView style={styles.container}>
+        <ScrollView style={styles.container} keyboardShouldPersistTaps={"handled"}>
             <View style={styles.textContainer}>
                 <Text style={styles.header2}>Stwórz konto</Text>
                 <Text style={styles.text14Medium}>Stwórz konto aby rozliczać się ze znajomymi!</Text>
@@ -76,7 +75,7 @@ export default function RegistrationView() {
                     title={"Zarejestruj się"}></MajorButton>
                 <Text style={styles.text14Medium} onPress={() => router.navigate("/login")}>Posiadam już konto</Text>
             </View>
-        </SafeAreaView>
+        </ScrollView>
     );
 }
 
@@ -110,6 +109,7 @@ const styles = StyleSheet.create({
         minWidth: "85%",
         marginVertical: "5%",
         justifyContent: "space-evenly",
+        gap: 10,
     },
     header2: {
         ...TextStyles.header2,

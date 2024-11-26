@@ -14,7 +14,6 @@ const apiClient = axios.create({
 apiClient.interceptors.request.use(
     async (config) => {
         try {
-            console.log("Trying to retrieve token")
             const token = await getJwt();
             if (token) {
                 config.headers.Authorization = `Bearer ${token}`;
@@ -22,7 +21,6 @@ apiClient.interceptors.request.use(
                 router.navigate("/login")
             }
         } catch (error) {
-            console.error("Error fetching JWT for request:", error);
         }
         return config;
     },
@@ -35,7 +33,6 @@ apiClient.interceptors.response.use(
     (response) => response,
     (error) => {
         if (error.response?.status === 401) {
-            console.error("Unauthorized: Invalid or expired JWT");
             router.navigate("/login")
         }
         return Promise.reject(error);
