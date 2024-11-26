@@ -1,4 +1,4 @@
-import {SafeAreaView, StyleSheet, Text, TextInput, View} from 'react-native';
+import {ScrollView, StyleSheet, Text, TextInput, View} from 'react-native';
 import React, {useState} from "react";
 import {TextStyles} from "@/styles/CommonStyles";
 import {Colors} from "@/styles/Colors";
@@ -13,7 +13,6 @@ export default function LoginView() {
     const [password, setPassword] = useState("")
 
     async function handleLogin() {
-        console.log("Logging user in")
         const loginRequest: LoginRequest = {
             email: email,
             password: password
@@ -26,7 +25,8 @@ export default function LoginView() {
     }
 
     return (
-        <SafeAreaView style={styles.container}>
+
+        <ScrollView contentContainerStyle={{flexGrow: 1}} keyboardShouldPersistTaps={"handled"}>
             <View style={styles.textContainer}>
                 <Text style={styles.logo}>Sedeo</Text>
                 <Text style={styles.header2}>Zaloguj się</Text>
@@ -49,11 +49,14 @@ export default function LoginView() {
 
             <View style={styles.buttonContainer}>
                 <MajorButton
-                    onPress={() => {console.log("trying to log user in");handleLogin()}}
+                    onPress={() => {
+                        handleLogin()
+                    }}
                     title={"Zaloguj się"}></MajorButton>
-                <Text style={styles.text14Medium} onPress={() => router.navigate("/registration")}>Utwórz konto</Text>
+                <Text style={styles.text14Medium} onPress={() => router.navigate("/registration")}>Utwórz
+                    konto</Text>
             </View>
-        </SafeAreaView>
+        </ScrollView>
     );
 }
 
@@ -67,7 +70,7 @@ const styles = StyleSheet.create({
         flex: 1 / 3,
         justifyContent: 'center',
         paddingHorizontal: '10%',
-        paddingVertical: '3%',
+        marginVertical: '10%',
         gap: 10,
     },
     input: {
