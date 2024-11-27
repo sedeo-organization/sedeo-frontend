@@ -39,6 +39,7 @@ export default function RegistrationView() {
                     style={styles.input}
                     onChangeText={email => setEmail(email)}
                     placeholder={"Email"}
+                    autoCapitalize='none'
                 />
                 <TextInput
                     style={styles.input}
@@ -54,18 +55,21 @@ export default function RegistrationView() {
                     style={styles.input}
                     onChangeText={phoneNumber => setPhoneNumber(phoneNumber)}
                     placeholder={"Numer telefonu"}
+                    autoCapitalize='none'
                 />
                 <TextInput
                     style={styles.input}
                     secureTextEntry={true}
                     onChangeText={password => setPassword(password)}
                     placeholder={"Hasło"}
+                    autoCapitalize='none'
                 />
                 <TextInput
                     style={styles.input}
                     secureTextEntry={true}
                     onChangeText={password => setRepeatedPassword(password)}
                     placeholder={"Potwierdź hasło"}
+                    autoCapitalize='none'
                 />
             </View>
 

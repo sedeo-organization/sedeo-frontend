@@ -64,15 +64,17 @@ export default function UserProfileView() {
                         <Text style={styles.text20Medium}>{userProfile?.email}</Text>
                     </View>
                     <View>
-                        <AccountBalanceCard leftText={'Stan konta'}
+                        <AccountBalanceCard leftText={'Stan rozliczeniowy konta'}
                                             rightText={`${userProfile?.accountBalance.toString()} zł`}
                                             backgroundColor={userProfile?.accountBalance >= 0 ? Colors.positive : Colors.negative}>
                         </AccountBalanceCard>
                     </View>
-                    <MajorButton title={"Wyloguj się"} onPress={() => {
-                        deleteJwt;
-                        router.navigate("/login")
-                    }}></MajorButton>
+                    <View style={styles.buttonContainer}>
+                        <MajorButton title={"Wyloguj się"} onPress={() => {
+                            deleteJwt;
+                            router.navigate("/login")
+                        }}></MajorButton>
+                    </View>
                 </>
             ) : (
                 <Text style={styles.text20Medium}>Nie znaleziono profilu użytkownika</Text>
@@ -93,11 +95,15 @@ const styles = StyleSheet.create({
         paddingHorizontal: '10%',
         paddingVertical: '3%',
         paddingTop: '15%',
-        gap: 10,
     },
     cardContainer: {
         flex: 1 / 3,
         justifyContent: "center",
+    },
+    buttonContainer: {
+        flex: 1 / 4,
+        gap: 15,
+        justifyContent: "flex-end",
     },
     header1: {
         ...TextStyles.header1,
