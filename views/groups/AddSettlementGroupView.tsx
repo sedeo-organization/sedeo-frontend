@@ -1,5 +1,5 @@
 import React, {useContext, useState} from "react";
-import {StyleSheet, Text, TextInput, View} from "react-native";
+import {ScrollView, StyleSheet, Text, TextInput, View} from "react-native";
 import {Colors} from "@/styles/Colors";
 import NextButton from "@/components/NextButton";
 import {TextStyles} from "@/styles/CommonStyles";
@@ -15,25 +15,27 @@ const AddSettlementGroupView = () => {
     }
 
     return (
-        <View style={styles.container}>
-            <View style={styles.headerContainer}>
-                <Text style={styles.text40Medium}>Dodaj grupę</Text>
+        <ScrollView contentContainerStyle={{flexGrow: 1}} keyboardShouldPersistTaps={"handled"}>
+            <View style={styles.container}>
+                <View style={styles.headerContainer}>
+                    <Text style={styles.text40Medium}>Dodaj grupę</Text>
+                </View>
+                <View style={styles.textInputContainer}>
+                    <TextInput
+                        style={styles.input}
+                        value={currentTitle}
+                        onChangeText={setCurrentTitle}
+                        placeholder={"Tytuł grupy rozliczeniowej"}
+                    />
+                </View>
+                <View style={styles.nextButtonContainer}>
+                    <NextButton onPress={() => {
+                        changeGroupTitle(currentTitle)
+                        router.navigate("/add-settlement-group-participant")
+                    }}></NextButton>
+                </View>
             </View>
-            <View style={styles.textInputContainer}>
-                <TextInput
-                    style={styles.input}
-                    value={currentTitle}
-                    onChangeText={setCurrentTitle}
-                    placeholder={"Tytuł grupy rozliczeniowej"}
-                />
-            </View>
-            <View style={styles.nextButtonContainer}>
-                <NextButton onPress={() => {
-                    changeGroupTitle(currentTitle)
-                    router.navigate("/add-settlement-group-participant")
-                }}></NextButton>
-            </View>
-        </View>
+        </ScrollView>
     );
 };
 

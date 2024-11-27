@@ -19,10 +19,8 @@ const SettlementDetailsView = () => {
             const plainJwt = await getJwt();
             if (plainJwt) {
                 const decodedClaims = jwtDecode(plainJwt);
-                console.log("Decoded sub", decodedClaims.sub)
                 setCurrentUserId(decodedClaims.sub)
             }
-            console.log("DECODED JWT:", plainJwt)
         }
 
         async function fetchSettlementExchanges() {
@@ -40,7 +38,6 @@ const SettlementDetailsView = () => {
 
         useEffect(() => {
             extractClaims();
-            console.log("CURRENT USER", currentUserId)
             fetchSettlementExchanges();
         }, [])
 

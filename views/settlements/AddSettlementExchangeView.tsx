@@ -94,8 +94,8 @@ const AddSettlementExchangeView = () => {
                 settlementExchanges: addSettlementContextData.contextSettlementExchanges.map(exchange => {
                     return {
                         exchangeId: exchange.exchangeId,
-                        debtorUserId: exchange.debtorUserId,
-                        creditorUserId: exchange.creditorUserId,
+                        debtorUserId: exchange.debtorId,
+                        creditorUserId: exchange.creditorId,
                         exchangeValue: Number(exchange.exchangeValue),
                     } as SettlementExchange
                 }),
@@ -141,8 +141,8 @@ const AddSettlementExchangeView = () => {
 
                 <View style={styles.actionButtonContainer}>
                     <FloatingActionButton onPress={() => {
-                        const emptyExchangeExists: boolean = contextSettlementExchanges.some(exchange => exchange.debtorUserId === undefined ||
-                            exchange.creditorUserId === undefined)
+                        const emptyExchangeExists: boolean = contextSettlementExchanges.some(exchange => exchange.debtorId === undefined ||
+                            exchange.creditorId === undefined)
                         if (!emptyExchangeExists) {
                             setContextSettlementExchanges(prevState => {
                                 const newExchange: Exchange = {

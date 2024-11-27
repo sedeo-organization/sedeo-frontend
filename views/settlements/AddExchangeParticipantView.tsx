@@ -48,7 +48,7 @@ export default function AddExchangeParticipantView() {
                             ...exchange,
                             creditorFirstName: participant.firstName,
                             creditorLastName: participant.lastName,
-                            creditorUserId: participant.userId,
+                            creditorId: participant.userId,
                         };
                     }
                     return exchange;
@@ -62,7 +62,7 @@ export default function AddExchangeParticipantView() {
                             ...exchange,
                             debtorFirstName: participant.firstName,
                             debtorLastName: participant.lastName,
-                            debtorUserId: participant.userId,
+                            debtorId: participant.userId,
                         };
                     }
                     return exchange;

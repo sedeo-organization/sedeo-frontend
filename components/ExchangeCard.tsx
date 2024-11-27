@@ -24,8 +24,8 @@ export const ExchangeCard = (exchangeCardProps: ExchangeCardProps) => {
         <View style={styles.card}>
             <View style={styles.names}>
                 <View style={styles.nameColumn}>
-                    <Text>{exchangeCardProps.creditorFirstName}</Text>
-                    <Text>{exchangeCardProps.creditorLastName}</Text>
+                    <Text style={{textAlign: "center"}}>{exchangeCardProps.creditorFirstName}</Text>
+                    <Text style={{textAlign: "center"}}>{exchangeCardProps.creditorLastName}</Text>
                 </View>
                 <View style={styles.inputAndArrow}>
                     <ExchangeArrowIcon />
@@ -40,8 +40,8 @@ export const ExchangeCard = (exchangeCardProps: ExchangeCardProps) => {
                     </View>
                 </View>
                 <View style={styles.nameColumn}>
-                    <Text>{exchangeCardProps.debtorFirstName}</Text>
-                    <Text>{exchangeCardProps.debtorLastName}</Text>
+                    <Text style={{textAlign: "center"}}>{exchangeCardProps.debtorFirstName}</Text>
+                    <Text style={{textAlign: "center"}}>{exchangeCardProps.debtorLastName}</Text>
                 </View>
             </View>
 
@@ -77,6 +77,8 @@ const styles = StyleSheet.create({
     nameColumn: {
         flexDirection: 'column',
         alignItems: 'center',
+        minWidth: 80,
+        maxWidth: 80
     },
     centerContainer: {
         flexDirection: 'column',

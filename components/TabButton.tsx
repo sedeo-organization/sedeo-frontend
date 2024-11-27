@@ -1,6 +1,7 @@
 import React from 'react';
 import { TouchableOpacity, Text, StyleSheet } from 'react-native';
 import {Colors} from "@/styles/Colors";
+import {TextStyles} from "@/styles/CommonStyles";
 
 interface TabButtonProps {
     title: string;
@@ -47,14 +48,12 @@ const styles = StyleSheet.create({
         minWidth: 150,
     },
     selectedText: {
-        fontSize: 16,
         color: Colors.textWhite,
-        fontWeight: 'bold',
+        ...TextStyles.text16Medium,
     },
     unselectedText: {
-        fontSize: 16,
         color: Colors.darkGrey,
-        fontWeight: 'bold',
+        ...TextStyles.text16Medium,
     },
 });
 

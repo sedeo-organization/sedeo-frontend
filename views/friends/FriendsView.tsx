@@ -71,6 +71,7 @@ const FriendsView = () => {
             key={item.userId}
             firstName={item.firstName}
             lastName={item.lastName}
+            phoneNumber={item.phoneNumber}
             onAccept={() => acceptFriendInvitation(item.userId)}
             onDecline={() => rejectFriendInvitation(item.userId)}
         />
