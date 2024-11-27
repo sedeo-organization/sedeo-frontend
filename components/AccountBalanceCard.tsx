@@ -15,7 +15,7 @@ const AccountBalanceCard = (cardProps: CustomCardProps) => {
     return (
         <View style={[styles.cardContainer, {backgroundColor: cardProps.backgroundColor || Colors.darkGrey}]}>
             <View style={styles.leftTextContainer}>
-                {cardProps.leftText ? <Text style={styles.text18Medium}>{cardProps.leftText}</Text> : null}
+                {cardProps.leftText ? <Text style={styles.text18Regular}>{cardProps.leftText}</Text> : null}
             </View>
             <View style={styles.rightTextContainer}>
                 {cardProps.rightText ? <Text style={styles.text32Regular}>{cardProps.rightText}</Text> : null}
@@ -41,10 +41,11 @@ const styles = StyleSheet.create({
     rightTextContainer: {
         flex: 1,
         marginLeft: '7%',
+        marginTop: '4%',
         justifyContent: 'center'
     },
-    text18Medium: {
-        ...TextStyles.text18Medium,
+    text18Regular: {
+        ...TextStyles.text18Regular,
         color: Colors.textWhite,
     },
     text32Regular: {

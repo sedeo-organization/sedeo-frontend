@@ -17,7 +17,8 @@ export default function RootLayout() {
         "poppins-bold": require("../assets/fonts/poppins/Poppins-Bold.ttf"),
         "poppins-italic": require("../assets/fonts/poppins/Poppins-Italic.ttf"),
         "poppins-semi-bold": require("../assets/fonts/poppins/Poppins-SemiBold.ttf"),
-        "poppins-medium": require("../assets/fonts/poppins/Poppins-Medium.ttf")
+        "poppins-medium": require("../assets/fonts/poppins/Poppins-Medium.ttf"),
+        "gfs-didot-regular": require("../assets/fonts/gidot/GFSDidot-Regular.ttf")
     });
 
     useEffect(() => {

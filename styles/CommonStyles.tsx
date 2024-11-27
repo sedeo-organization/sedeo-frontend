@@ -4,7 +4,7 @@ import {Colors} from "@/styles/Colors";
 const SEMI_BOLD_FONT = 'poppins-semi-bold'
 const MEDIUM_FONT = 'poppins-medium'
 const REGULAR_FONT = 'poppins-regular'
-const LOGO_FONT = 'GFS Didot'
+const LOGO_FONT = 'gfs-didot-regular'
 
 export const TextStyles = StyleSheet.create({
     appLogoText: {

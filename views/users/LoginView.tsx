@@ -38,12 +38,14 @@ export default function LoginView() {
                     style={styles.input}
                     onChangeText={email => setEmail(email)}
                     placeholder={"Email"}
+                    autoCapitalize='none'
                 />
                 <TextInput
                     style={styles.input}
                     secureTextEntry={true}
                     onChangeText={password => setPassword(password)}
                     placeholder={"Hasło"}
+                    autoCapitalize='none'
                 />
             </View>
 
