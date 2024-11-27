@@ -1,5 +1,5 @@
 import React, {useContext, useState} from "react";
-import {StyleSheet, Text, TextInput, View} from "react-native";
+import {ScrollView, StyleSheet, Text, TextInput, View} from "react-native";
 import {Colors} from "@/styles/Colors";
 import NextButton from "@/components/NextButton";
 import {TextStyles} from "@/styles/CommonStyles";
@@ -8,7 +8,7 @@ import AddSettlementContext from "@/store/add-settlement-context";
 
 const AddSettlementView = () => {
     const [currentTitle, setCurrentTitle] = useState("");
-    const { groupId } = useLocalSearchParams<{ groupId: string }>();
+    const {groupId} = useLocalSearchParams<{ groupId: string }>();
     const [currentTotalValue, setCurrentTotalValue] = useState<string>("");
     const {settlementTitle, setSettlementTitle} = useContext(AddSettlementContext);
     const {totalSettlementValue, setTotalSettlementValue} = useContext(AddSettlementContext);
@@ -22,40 +22,42 @@ const AddSettlementView = () => {
     }
 
     return (
-        <View style={styles.container}>
-            <View style={styles.headerContainer}>
-                <Text style={styles.text40Medium}>Dodaj rozliczenie</Text>
+        <ScrollView contentContainerStyle={{flexGrow: 1}} keyboardShouldPersistTaps={"handled"}>
+            <View style={styles.container}>
+                <View style={styles.headerContainer}>
+                    <Text style={styles.text40Medium}>Dodaj rozliczenie</Text>
+                </View>
+                <View style={styles.textInputContainer}>
+                    <TextInput
+                        style={styles.input}
+                        value={currentTitle}
+                        onChangeText={setCurrentTitle}
+                        placeholder={"Tytuł rozliczenia"}
+                    />
+                    <TextInput
+                        style={styles.input}
+                        value={currentTotalValue.toString()}
+                        keyboardType="numeric"
+                        onChangeText={text => {
+                            if (/^\d*\.?\d{0,2}$/.test(text)) {
+                                setCurrentTotalValue(text);
+                            }
+                        }}
+                        placeholder={"Kwota rozliczenia"}
+                    />
+                </View>
+                <View style={styles.nextButtonContainer}>
+                    <NextButton onPress={() => {
+                        changeSettlementTitle(currentTitle)
+                        changeSettlementTotalValue(currentTotalValue)
+                        router.navigate({
+                            pathname: "/add-settlement-exchange",
+                            params: {groupId: groupId},
+                        })
+                    }}></NextButton>
+                </View>
             </View>
-            <View style={styles.textInputContainer}>
-                <TextInput
-                    style={styles.input}
-                    value={currentTitle}
-                    onChangeText={setCurrentTitle}
-                    placeholder={"Tytuł rozliczenia"}
-                />
-                <TextInput
-                    style={styles.input}
-                    value={currentTotalValue.toString()}
-                    keyboardType="numeric"
-                    onChangeText={text => {
-                        if (/^\d*\.?\d{0,2}$/.test(text)) {
-                            setCurrentTotalValue(text);
-                        }
-                    }}
-                    placeholder={"Kwota rozliczenia"}
-                />
-            </View>
-            <View style={styles.nextButtonContainer}>
-                <NextButton onPress={() => {
-                    changeSettlementTitle(currentTitle)
-                    changeSettlementTotalValue(currentTotalValue)
-                    router.navigate({
-                        pathname: "/add-settlement-exchange",
-                        params: {groupId: groupId},
-                    })
-                }}></NextButton>
-            </View>
-        </View>
+        </ScrollView>
     );
 };
 

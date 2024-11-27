@@ -19,8 +19,8 @@ export default function LoginView() {
         }
         const loginResponse = await userApi.postUserLogin(loginRequest)
         if (loginResponse) {
-            await saveJwt(loginResponse.jwt);
-            router.navigate("/")
+            await saveJwt(loginResponse.jwt.toString());
+            router.replace("/")
         }
     }
 
@@ -39,6 +39,7 @@ export default function LoginView() {
                     onChangeText={email => setEmail(email)}
                     placeholder={"Email"}
                     autoCapitalize='none'
+                    inputMode={"email"}
                 />
                 <TextInput
                     style={styles.input}

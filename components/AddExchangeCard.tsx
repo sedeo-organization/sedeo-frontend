@@ -21,9 +21,9 @@ export const AddExchangeCard = (addExchangeCardProps: AddExchangeCardProps) => {
         <View style={styles.card}>
             <View style={styles.names}>
                 {addExchangeCardProps.creditorFirstName ? (
-                    <TouchableOpacity onPress={addExchangeCardProps.onCreditorPress}>
-                        <Text>{addExchangeCardProps.creditorFirstName}</Text>
-                        <Text>{addExchangeCardProps.creditorLastName}</Text>
+                    <TouchableOpacity style={{maxWidth: 80, minWidth: 80}} onPress={addExchangeCardProps.onCreditorPress}>
+                        <Text style={{textAlign: "center"}}>{addExchangeCardProps.creditorFirstName}</Text>
+                        <Text style={{textAlign: "center"}}>{addExchangeCardProps.creditorLastName}</Text>
                     </TouchableOpacity>
                 ) : (
                     <TouchableOpacity onPress={addExchangeCardProps.onCreditorPress}>
@@ -42,9 +42,9 @@ export const AddExchangeCard = (addExchangeCardProps: AddExchangeCardProps) => {
                     </View>
                 </View>
                 {addExchangeCardProps.debtorFirstName ? (
-                    <TouchableOpacity onPress={addExchangeCardProps.onDebtorPress}>
-                        <Text>{addExchangeCardProps.debtorFirstName}</Text>
-                        <Text>{addExchangeCardProps.debtorLastName}</Text>
+                    <TouchableOpacity style={{maxWidth: 80, minWidth: 80}} onPress={addExchangeCardProps.onDebtorPress}>
+                        <Text style={{textAlign: "center"}}>{addExchangeCardProps.debtorFirstName}</Text>
+                        <Text style={{textAlign: "center"}}>{addExchangeCardProps.debtorLastName}</Text>
                     </TouchableOpacity>
                 ) : (
                     <TouchableOpacity onPress={addExchangeCardProps.onDebtorPress}>

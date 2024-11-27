@@ -1,6 +1,6 @@
 import axios from "axios";
 import {BASE_API_URL} from "@/config/AppConfig";
-import {getJwt} from "@/utils/auth/jwtStorage";
+import {deleteJwt, getJwt} from "@/utils/auth/jwtStorage";
 import {router} from "expo-router";
 
 const apiClient = axios.create({
@@ -18,7 +18,7 @@ apiClient.interceptors.request.use(
             if (token) {
                 config.headers.Authorization = `Bearer ${token}`;
             } else {
-                router.navigate("/login")
+                router.replace("/login")
             }
         } catch (error) {
         }
@@ -33,7 +33,8 @@ apiClient.interceptors.response.use(
     (response) => response,
     (error) => {
         if (error.response?.status === 401) {
-            router.navigate("/login")
+            deleteJwt()
+            router.replace("/login")
         }
         return Promise.reject(error);
     }

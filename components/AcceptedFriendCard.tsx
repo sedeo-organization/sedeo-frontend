@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import {Colors} from "@/styles/Colors";
-import {CardStyles} from "@/styles/CommonStyles";
+import {CardStyles, TextStyles} from "@/styles/CommonStyles";
 
 interface AcceptedFriendCardProps {
     firstName: string;
@@ -12,8 +12,8 @@ interface AcceptedFriendCardProps {
 const AcceptedFriendCard = (acceptedFriendCardProps: AcceptedFriendCardProps) => {
     return (
         <View style={styles.card}>
-            <Text>{acceptedFriendCardProps.firstName} {acceptedFriendCardProps.lastName}</Text>
-            <Text>{acceptedFriendCardProps.phone}</Text>
+            <Text style={styles.text18Regular}>{acceptedFriendCardProps.firstName} {acceptedFriendCardProps.lastName}</Text>
+            <Text style={styles.text18Regular}>{acceptedFriendCardProps.phone}</Text>
         </View>
     );
 };
@@ -33,6 +33,10 @@ const styles = StyleSheet.create({
         ...CardStyles.cardShadow,
         minHeight: 62,
         borderRadius: 30,
+    },
+    text18Regular: {
+        ...TextStyles.text18Regular,
+        color: Colors.darkGrey,
     },
 });
 

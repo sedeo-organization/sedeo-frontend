@@ -36,6 +36,10 @@ export const TextStyles = StyleSheet.create({
         fontSize: 14,
         fontFamily: MEDIUM_FONT
     },
+    text14Regular: {
+        fontSize: 14,
+        fontFamily: REGULAR_FONT,
+    },
     text20Medium: {
         fontSize: 20,
         fontFamily: MEDIUM_FONT
