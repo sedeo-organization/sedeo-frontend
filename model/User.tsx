@@ -28,3 +28,12 @@ export interface ChangeFriendInvitationStatusRequest {
     invitingUserId: string;
     status: string;
 }
+
+export interface RequestPasswordResetRequest {
+    email: string;
+}
+
+export interface RequestPasswordReset {
+    password: string;
+    token: string;
+}

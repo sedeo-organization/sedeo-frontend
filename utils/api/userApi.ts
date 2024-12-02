@@ -3,7 +3,7 @@ import {
     ChangeFriendInvitationStatusRequest,
     LoginRequest,
     LoginResponse,
-    RegisterUserRequest,
+    RegisterUserRequest, RequestPasswordReset, RequestPasswordResetRequest,
     UserProfileData
 } from "@/model/User";
 import apiClient from "@/utils/api/apiClient";
@@ -16,6 +16,7 @@ const CREATE_FRIEND_INVITATION_API_URL = `${BASE_API_URL}/users/friend-requests`
 const REGISTER_USER_API_URL = `${BASE_API_URL}/registration`
 const LOGIN_API_URL = `${BASE_API_URL}/login`
 const CHANGE_FRIEND_INVITATION_STATUS_API_URL = `${BASE_API_URL}/users/friend-requests`
+const USERS_PASSWORD_API_URL = `${BASE_API_URL}/users/password`
 
 export const userApi = {
     getProfile: async (): Promise<UserProfileData | undefined> => {
@@ -107,6 +108,30 @@ export const userApi = {
             .then(response => {
                 console.log(response.data)
                 return response.data as LoginResponse;
+            })
+            .catch(err => {
+                console.log(err.response)
+                return err.response?.status;
+            })
+    },
+    postPasswordResetRequest: async (requestPasswordResetRequest: RequestPasswordResetRequest) => {
+        return apiClient
+            .post(`${USERS_PASSWORD_API_URL}`, requestPasswordResetRequest)
+            .then(response => {
+                console.log(response.data)
+                return response.data;
+            })
+            .catch(err => {
+                console.log(err.response)
+                return err.response?.status;
+            })
+    },
+    patchPasswordResetRequest: async (requestPasswordReset: RequestPasswordReset) => {
+        return apiClient
+            .patch(`${USERS_PASSWORD_API_URL}`, requestPasswordReset)
+            .then(response => {
+                console.log(response.data)
+                return response.data;
             })
             .catch(err => {
                 console.log(err.response)

@@ -4,61 +4,49 @@ import {TextStyles} from "@/styles/CommonStyles";
 import {Colors} from "@/styles/Colors";
 import MajorButton from "@/components/MajorButton";
 import {userApi} from "@/utils/api/userApi";
-import {LoginRequest} from "@/model/User";
-import {saveJwt} from "@/utils/auth/jwtStorage";
-import {router} from "expo-router";
+import {RequestPasswordReset} from "@/model/User";
+import {router, useLocalSearchParams} from "expo-router";
 
-export default function LoginView() {
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("")
+export default function RequestPasswordResetView() {
+    const { token } = useLocalSearchParams<{ token: string }>();
+    const [password, setPassword] = useState("");
 
-    async function handleLogin() {
-        const loginRequest: LoginRequest = {
-            email: email,
+    async function handlePasswordResetRequest() {
+        const requestPasswordReset: RequestPasswordReset = {
+            token: token,
             password: password
         }
-        const loginResponse = await userApi.postUserLogin(loginRequest)
-        if (loginResponse) {
-            await saveJwt(loginResponse.jwt.toString());
-            router.replace("/")
-        }
+        await userApi.patchPasswordResetRequest(requestPasswordReset)
+        router.navigate("/login")
     }
 
     return (
-
-        <ScrollView contentContainerStyle={{flexGrow: 1}} keyboardShouldPersistTaps={"handled"}>
+        <ScrollView style={styles.container} contentContainerStyle={{ flexGrow: 1, flexDirection: 'column' }} keyboardShouldPersistTaps={"handled"}>
             <View style={styles.textContainer}>
-                <Text style={styles.logo}>Sedeo</Text>
-                <Text style={styles.header2}>Zaloguj się</Text>
-                <Text style={styles.text14Medium}>Witaj ponownie!</Text>
+                <Text style={styles.header2}>Zresetuj hasło</Text>
+                <Text style={styles.text14Medium} onPress={() => {}}>Wpisz nowe hasło aby odzyskać konto</Text>
             </View>
-
             <View style={styles.textInputContainer}>
                 <TextInput
                     style={styles.input}
-                    onChangeText={email => setEmail(email)}
-                    placeholder={"Email"}
-                    autoCapitalize='none'
-                    inputMode={"email"}
-                />
-                <TextInput
-                    style={styles.input}
-                    secureTextEntry={true}
                     onChangeText={password => setPassword(password)}
+                    secureTextEntry={true}
                     placeholder={"Hasło"}
                     autoCapitalize='none'
                 />
-                <Text style={styles.text14Medium} onPress={() => router.navigate("/request-password-reset")}>Nie pamiętasz hasła?</Text>
+                <TextInput
+                    style={styles.input}
+                    onChangeText={password => setPassword(password)}
+                    secureTextEntry={true}
+                    placeholder={"Powtórz hasło"}
+                    autoCapitalize='none'
+                />
             </View>
 
             <View style={styles.buttonContainer}>
                 <MajorButton
-                    onPress={() => {
-                        handleLogin()
-                    }}
-                    title={"Zaloguj się"}></MajorButton>
-                <Text style={styles.text14Medium} onPress={() => router.navigate("/registration")}>Utwórz
-                    konto</Text>
+                    onPress={() => handlePasswordResetRequest()}
+                    title={"Zresetuj hasło"}></MajorButton>
             </View>
         </ScrollView>
     );
@@ -66,15 +54,15 @@ export default function LoginView() {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
+        flexGrow: 1,
         flexDirection: "column",
         backgroundColor: Colors.defaultBackground,
     },
     textContainer: {
-        flex: 1 / 3,
+        flex: 1 / 8,
         justifyContent: 'center',
         paddingHorizontal: '10%',
-        marginVertical: '10%',
+        paddingVertical: '3%',
         gap: 10,
     },
     input: {
@@ -85,7 +73,7 @@ const styles = StyleSheet.create({
         borderRadius: 10,
     },
     buttonContainer: {
-        flex: 1 / 4,
+        flex: 1 / 6,
         gap: 15,
     },
     textInputContainer: {
@@ -93,12 +81,8 @@ const styles = StyleSheet.create({
         alignSelf: "center",
         minWidth: "85%",
         marginVertical: "5%",
+        justifyContent: "flex-start",
         gap: 15,
-    },
-    logo: {
-        ...TextStyles.appLogoText,
-        color: Colors.logo,
-        textAlign: "center",
     },
     header2: {
         ...TextStyles.header2,
