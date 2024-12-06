@@ -88,4 +88,30 @@ export const settlementGroupApi = {
                 return err.response?.status;
             })
     },
+    getGroupSummaries: async (groupId: string, status: string): Promise<FetchPendingGroupSummariesResponse | undefined> => {
+        return apiClient
+            .get(`${SETTLEMENT_GROUPS_API_URL}/${groupId}/summary`, {
+                    params: {status: status}
+                }
+            )
+            .then(response => {
+                console.log(response.data)
+                return response.data as FetchPendingGroupSummariesResponse;
+            })
+            .catch(err => {
+                console.log(err.response)
+                return err.response?.status;
+            });
+    },
+    patchBatchSettleExchanges: async (groupId: string, batchSettleExchangesRequest: BatchSettleExchangesRequest) => {
+        return apiClient
+            .patch(`${SETTLEMENT_GROUPS_API_URL}/${groupId}/summary`, batchSettleExchangesRequest)
+            .then(response => {
+                console.log(response.data)
+            })
+            .catch(err => {
+                console.log(err.response)
+                return err.response?.status;
+            })
+    },
 };
