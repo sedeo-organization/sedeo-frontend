@@ -22,3 +22,22 @@ interface Participant {
 interface FetchGroupParticipantsResponse {
     participants: Participant[];
 }
+
+interface FetchPendingGroupSummariesResponse {
+    summarisedExchanges: SummarisedExchange[];
+}
+
+interface SummarisedExchange {
+    "debtorUserId": string;
+    "debtorFirstName": string;
+    "debtorLastName": string;
+    "creditorUserId": string;
+    "creditorFirstName": string;
+    "creditorLastName": string;
+    "summarisedExchangesValue": number;
+}
+
+interface BatchSettleExchangesRequest {
+    "creditorUserId": string;
+    "debtorUserId": string;
+}

@@ -8,6 +8,7 @@ import {TextStyles} from "@/styles/CommonStyles";
 import {settlementGroupApi} from "@/utils/api/settlementGroupApi";
 import SettlementCard from "@/components/SettlementCard";
 import AddSettlementContext from "@/store/add-settlement-context";
+import MajorButton from "@/components/MajorButton";
 
 const SettlementView = () => {
     const { groupId } = useLocalSearchParams<{ groupId: string }>();
@@ -73,6 +74,13 @@ const SettlementView = () => {
                 })}
                     />
             </View>
+
+            <View style={styles.majorButtonContainer}>
+                <MajorButton title={"Podsumowanie"} onPress={() => router.navigate({
+                    pathname: "/settlement-group-summary",
+                    params: {groupId: groupId},
+                })}></MajorButton>
+            </View>
         </View>
     );
 };
@@ -98,7 +106,12 @@ const styles = StyleSheet.create({
     },
     listContainer: {
         flex: 1,
-    }
+    },
+    majorButtonContainer: {
+        justifyContent: "center",
+        alignSelf: "center",
+        marginBottom: "10%",
+    },
 });
 
 export default SettlementView;
