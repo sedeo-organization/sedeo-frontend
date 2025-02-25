@@ -1,8 +1,17 @@
-# Welcome to your Expo app 👋
+<h1 align="center" style="font-family: 'GFS Didot', serif; font-weight: bold; font-size: 60px;">Sedeo</h1>
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+<p align="center">
+    <b>Frontend for Sedeo financial settlements mobile application.</b>
+</p>
 
-## Get started
+<h2 id="introduction">Introduction</h2>
+
+<b>"Sedeo"</b> allows users to divide group expenses and settle them in a simple and practical way.
+
+The application enables users to maintain a list of friends, create themed settlement groups,
+and manage individual settlements while considering various division scenarios. Additionally, each user possesses a profile where their settlement account balance is calculated based on settlements across all groups.
+
+<h2 id="started">Getting started</h2>
 
 1. Install dependencies
 
@@ -16,35 +25,61 @@ This is an [Expo](https://expo.dev) project created with [`create-expo-app`](htt
     npx expo start
    ```
 
-In the output, you'll find options to open the app in a
+<h2>Screenshots</h2>
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+Following screenshots showcase functionalities of the app.
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+<h2>Login and register screens</h2>
+<div style="display: flex; gap: 30px; justify-content: center">
+   <img src="docs/img/readme/login_screen.png" width="300" alt="Login screen">
+   <img src="docs/img/readme/registration_screen.png" width="300" alt="Registration screen">
+</div>
 
-## Get a fresh project
+<h2>Reset password screens</h2>
+<div style="display: flex; gap: 30px; justify-content: center">
+   <img src="docs/img/readme/attempt_password_reset_screen.png" width="300" alt="Attempt password reset screen">
+   <img src="docs/img/readme/reset_password_screen.png" width="300" alt="Reset password screen">
+</div>
 
-When you're ready, run:
+<h2>Profile screens</h2>
+<div style="display: flex; gap: 30px; justify-content: center">
+   <img src="docs/img/readme/positive_balance_profile.png" width="300" alt="Profile with positive account balance">
+   <img src="docs/img/readme/negative_balance_profile.png" width="300" alt="Profile with negative account balance">
+</div>
 
-```bash
-npm run reset-project
-```
+<h2>Friends screens</h2>
+<div style="display: flex; gap: 30px; justify-content: center">
+   <img src="docs/img/readme/accepted_friends_screen.png" width="300" alt="Accepted friends screen">
+   <img src="docs/img/readme/add_friend_screen.png" width="300" alt="Search for friends screen">
+</div>
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+<div style="display: flex; gap: 30px; justify-content: center">
+   <img src="docs/img/readme/friend_invitations_screen.png" width="300" alt="Accept or reject friend screen">
+</div>
 
-## Learn more
+<h2>Settlement groups screens</h2>
+<div style="display: flex; gap: 30px; justify-content: center">
+   <img src="docs/img/readme/settlement_groups_screen.png" width="300" alt="Pending settlement groups screen">
+   <img src="docs/img/readme/add_settlement_group_screen.png" width="300" alt="Add settlement group screen">
+</div>
+<div style="display: flex; gap: 30px; justify-content: center">
+   <img src="docs/img/readme/create_group_screen.png" width="300" alt="Add group screen">
+   <img src="docs/img/readme/add_friends_to_settlement_group_screen.png" width="300" alt="Add friends to settlement group screen">
+</div>
 
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+<h2>Settlement screens</h2>
+<div style="display: flex; gap: 30px; justify-content: center">
+   <img src="docs/img/readme/settlements_screen.png" width="300" alt="Settlements screen">
+   <img src="docs/img/readme/add_settlement_screen.png" width="300" alt="Add settlement screen">
+</div>
+<div style="display: flex; gap: 30px; justify-content: center">
+   <img src="docs/img/readme/create_settlement_screen.png" width="300" alt="Create settlement screen">
+   <img src="docs/img/readme/add_friends_to_settlement_screen.png" width="300" alt="Add friends to settlement screen">
+</div>
+<div style="display: flex; gap: 30px; justify-content: center">
+   <img src="docs/img/readme/settlement_details_screen.png" width="300" alt="Settlement details screen">
+   <img src="docs/img/readme/group_summary_screen.png" width="300" alt="Group summary screen">
+</div>
+<div style="display: flex; gap: 30px; justify-content: center">
+   <img src="docs/img/readme/summarized_settlements_screen.png" width="300" alt="Summarized settlements screen">
+</div>
