@@ -25,7 +25,6 @@ export interface LoginResponse {
 }
 
 export interface ChangeFriendInvitationStatusRequest {
-    invitingUserId: string;
     status: string;
 }
 

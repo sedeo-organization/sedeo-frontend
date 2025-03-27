@@ -4,7 +4,7 @@ import {SearchBar} from "@/components/SearchBar";
 import {Colors} from "@/styles/Colors";
 import {CircularActivityIndicator} from "@/components/CircularActivityIndicator";
 import {AddFriendCard} from "@/components/AddFriendCard";
-import {userApi} from "@/utils/api/userApi";
+import {friendApi} from "@/utils/api/friendApi"
 import AddSettlementGroupContext from "@/store/add-settlement-group-context";
 
 export default function AddFriendToSettlementGroupView() {
@@ -25,7 +25,7 @@ export default function AddFriendToSettlementGroupView() {
 
     const fetchData = async () => {
         setLoading(true);
-        const response = await userApi.getFriends();
+        const response = await friendApi.getFriends();
         if (response) {
             let filteredFriends = response.friends
                 .filter((friend: AcceptedFriend) =>

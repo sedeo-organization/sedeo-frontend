@@ -5,19 +5,20 @@ interface AcceptedFriend {
     phoneNumber: string;
 }
 
-interface FriendInvitation {
+interface FriendshipInvitation {
+    invitationId: string;
     userId: string;
     firstName: string;
     lastName: string;
     phoneNumber: string;
 }
 
-interface AcceptedFriendsResponse {
+interface AcceptedFriendshipResponse {
     friends: AcceptedFriend[];
 }
 
-interface FriendInvitationsResponse {
-    invitingUsers: FriendInvitation[];
+interface FriendshipInvitationsResponse {
+    invitations: FriendshipInvitation[];
 }
 
 interface PotentialFriend {
@@ -31,6 +32,10 @@ interface PotentialFriendsResponse {
     potentialFriends: PotentialFriend[]
 }
 
-interface AddFriendInvitationRequest {
-    recipientUserId: string
+interface AddFriendshipInvitationRequest {
+    invitedUserId: string
+}
+
+interface InvitationWithUserFriend {
+
 }
