@@ -4,7 +4,7 @@ import {SearchBar} from "@/components/SearchBar";
 import {Colors} from "@/styles/Colors";
 import {CircularActivityIndicator} from "@/components/CircularActivityIndicator";
 import {AddFriendCard} from "@/components/AddFriendCard";
-import {userApi} from "@/utils/api/userApi";
+import {friendApi} from "@/utils/api/friendApi";
 
 export default function AddFriendView() {
     const [searchPhrase, setSearchPhrase] = useState("");
@@ -23,7 +23,7 @@ export default function AddFriendView() {
 
     const fetchData = async () => {
         setLoading(true);
-        const response = await userApi.getPotentialFriends(searchPhrase);
+        const response = await friendApi.getPotentialFriends(searchPhrase);
         if (response) {
             setPotentialFriends(response.potentialFriends);
             setLoading(false);
@@ -31,11 +31,10 @@ export default function AddFriendView() {
     };
 
     async function sendFriendInvitation(userId: string) {
-        console.log("Friend invitation sent for user: ", userId)
-        const invitationRequest: AddFriendInvitationRequest = {
-            recipientUserId: userId,
+        const invitationRequest: AddFriendshipInvitationRequest = {
+            invitedUserId: userId,
         };
-        await userApi.sendFriendInvitation(invitationRequest);
+        await friendApi.sendFriendshipInvitation(invitationRequest);
     }
 
     const renderAddFriendCard = ({item}: { item: PotentialFriend }) => (

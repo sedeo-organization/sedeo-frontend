@@ -6,7 +6,7 @@ import AcceptedFriendCard from "@/components/AcceptedFriendCard";
 import FriendRequestCard from "@/components/FriendRequestCard";
 import FloatingActionButton from "@/components/FloatingActionButton";
 import {TextStyles} from "@/styles/CommonStyles";
-import {userApi} from "@/utils/api/userApi";
+import {friendApi} from "@/utils/api/friendApi";
 import {CircularActivityIndicator} from "@/components/CircularActivityIndicator";
 import {router} from "expo-router";
 import {ChangeFriendInvitationStatusRequest} from "@/model/User";
@@ -14,13 +14,13 @@ import {ChangeFriendInvitationStatusRequest} from "@/model/User";
 const FriendsView = () => {
     const [selectedTab, setSelectedTab] = useState('Zaakceptowani');
     const [acceptedFriends, setAcceptedFriends] = useState<AcceptedFriend[]>([]);
-    const [friendInvitations, setFriendInvitations] = useState<FriendInvitation[]>([]);
+    const [friendshipInvitations, setFriendshipInvitations] = useState<FriendshipInvitation[]>([]);
     const [refetchAcceptedFriends, setRefetchAcceptedFriends] = useState(false);
     const [isLoading, setIsLoading] = useState(true)
 
     async function fetchAcceptedFriends() {
         setIsLoading(true);
-        const _acceptedFriends = await userApi.getFriends();
+        const _acceptedFriends = await friendApi.getFriends();
         if (_acceptedFriends) {
             setAcceptedFriends(_acceptedFriends.friends);
             setIsLoading(false);
@@ -29,26 +29,24 @@ const FriendsView = () => {
 
     async function fetchFriendInvitations() {
         setIsLoading(true);
-        const _friendInvitations = await userApi.getFriendInvitations();
-        setFriendInvitations(_friendInvitations.invitingUsers);
+        const _friendInvitations = await friendApi.getFriendshipInvitations();
+        setFriendshipInvitations(_friendInvitations.invitations);
         setIsLoading(false);
     }
 
-    async function acceptFriendInvitation(invitingUserId: string) {
+    async function acceptFriendInvitation(invitationId: string) {
         const changeFriendInvitationStatusRequest: ChangeFriendInvitationStatusRequest = {
-            invitingUserId: invitingUserId,
             status: "ACCEPTED"
         }
-        await userApi.patchChangeFriendInvitationStatus(changeFriendInvitationStatusRequest)
+        await friendApi.patchChangeFriendshipInvitationStatus(changeFriendInvitationStatusRequest, invitationId)
         await fetchFriendInvitations();
     }
 
-    async function rejectFriendInvitation(invitingUserId: string) {
+    async function rejectFriendInvitation(invitationId: string) {
         const changeFriendInvitationStatusRequest: ChangeFriendInvitationStatusRequest = {
-            invitingUserId: invitingUserId,
             status: "REJECTED"
         }
-        await userApi.patchChangeFriendInvitationStatus(changeFriendInvitationStatusRequest)
+        await friendApi.patchChangeFriendshipInvitationStatus(changeFriendInvitationStatusRequest, invitationId)
         await fetchFriendInvitations();
     }
 
@@ -66,14 +64,14 @@ const FriendsView = () => {
         />
     );
 
-    const renderInvitationCard = ({item}: { item: FriendInvitation }) => (
+    const renderInvitationCard = ({item}: { item: FriendshipInvitation }) => (
         <FriendRequestCard
             key={item.userId}
             firstName={item.firstName}
             lastName={item.lastName}
             phoneNumber={item.phoneNumber}
-            onAccept={() => acceptFriendInvitation(item.userId)}
-            onDecline={() => rejectFriendInvitation(item.userId)}
+            onAccept={() => acceptFriendInvitation(item.invitationId)}
+            onDecline={() => rejectFriendInvitation(item.invitationId)}
         />
     );
 
@@ -89,7 +87,7 @@ const FriendsView = () => {
         } else {
             return (
                 <FlatList
-                    data={friendInvitations}
+                    data={friendshipInvitations}
                     renderItem={renderInvitationCard}
                     keyExtractor={(item) => item.userId}
                 />
